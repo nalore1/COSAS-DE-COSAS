@@ -2,9 +2,20 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+"
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+"
         crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="C:\Users\Administrator\Desktop\Lorenis\utils.js"></script>
+    <script src="C:\Users\Administrator\Desktop\Lorenis\Chart.bundle.js"></script>
+    <style>
+    canvas {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    </style>
+    <!--LINKS BOOTSTRAP-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
 </head>
 
 <body>
@@ -107,11 +118,114 @@
 
 
         <!--GRAFICO-->
-        <div align ="center" class="col-md-4">
-            <br><img class="img-responsive img-rounded" src="https://images.unsplash.com/photo-1533727843255-76b0e1a2382e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1634&q=80" height="200" width="410" />
-        </div>
+        <div class="col-md-5">
+                <div id="container" style="width: 75%;">
+                      <canvas id="canvas"></canvas>
+                  </div>
+                
+                  <script>
+                      var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                      var color = Chart.helpers.color;
+                      var barChartData = {
+                        //MESES QUE SE MOSTRARAN EN PANTALLA
+                          labels: ['Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero'],
+                          datasets: [{
+                            //DICE QUE SIGNIFICARAN LAS BARRAS
+                            label: 'Reclamos ultimos 6 meses',
+                              backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                              borderColor: window.chartColors.blue,
+                              borderWidth: 1,
+                              //CAMBIO DE DATOS DE GRACFICO
+                              data: [
+                              100,250,1000,603,70,805
+                              ]
+                          }, 
+                          ]
+              
+                      };
+              
+                      window.onload = function() {
+                          var ctx = document.getElementById('canvas').getContext('2d');
+                          window.myBar = new Chart(ctx, {
+                              type: 'bar',
+                              data: barChartData,
+                              options: {
+                                  responsive: true,
+                                  legend: {
+                                      position: 'top',
+                                  },
+                                  //TITULO DEL GRAFICO
+                                  title: {
+                                      display: true,
+                                      text: 'Reclamos'
+                                  }
+                              }
+                          });
+              
+                      };
+              
+                      document.getElementById('randomizeData').addEventListener('click', function() {
+                          var zero = Math.random() < 0.2 ? true : false;
+                          barChartData.datasets.forEach(function(dataset) {
+                              dataset.data = dataset.data.map(function() {
+                                  return zero ? 0.0 : randomScalingFactor();
+                              });
+              
+                          });
+                          window.myBar.update();
+                      });
+              
+                      var colorNames = Object.keys(window.chartColors);
+                      document.getElementById('addDataset').addEventListener('click', function() {
+                          var colorName = colorNames[barChartData.datasets.length % colorNames.length];
+                          var dsColor = window.chartColors[colorName];
+                          var newDataset = {
+                              label: 'Dataset ' + (barChartData.datasets.length + 1),
+                              backgroundColor: color(dsColor).alpha(0.5).rgbString(),
+                              borderColor: dsColor,
+                              borderWidth: 1,
+                              data: []
+                          };
+              
+                          for (var index = 0; index < barChartData.labels.length; ++index) {
+                              newDataset.data.push(randomScalingFactor());
+                          }
+              
+                          barChartData.datasets.push(newDataset);
+                          window.myBar.update();
+                      });
+              
+                      document.getElementById('addData').addEventListener('click', function() {
+                          if (barChartData.datasets.length > 0) {
+                              var month = MONTHS[barChartData.labels.length % MONTHS.length];
+                              barChartData.labels.push(month);
+              
+                              for (var index = 0; index < barChartData.datasets.length; ++index) {
+                                  // window.myBar.addData(randomScalingFactor(), index);
+                                  barChartData.datasets[index].data.push(randomScalingFactor());
+                              }
+              
+                              window.myBar.update();
+                          }
+                      });
+              
+                      document.getElementById('removeDataset').addEventListener('click', function() {
+                          barChartData.datasets.pop();
+                          window.myBar.update();
+                      });
+              
+                      document.getElementById('removeData').addEventListener('click', function() {
+                          barChartData.labels.splice(-1, 1); // remove the label first
+              
+                          barChartData.datasets.forEach(function(dataset) {
+                              dataset.data.pop();
+                          });
+              
+                          window.myBar.update();
+                      });
+                  </script>
     </div>
-    </div>
+</div>
 
 
 <!--BANNER INFERIOR-->
