@@ -5,22 +5,22 @@ app.controller('ctrlLogin', function ($scope) { //con esto creamos un controlado
         $scope.mostrarLogin = true;
         $scope.mostrarError = false;
         $scope.mensaje = "";
+        $scope.usuario= "";
+        $scope.contrasena = "";
+        
     
-    
-    
-        $scope.hola = function() {
-    
-    
-    
-            if( $scope.usuario == "" &&  $scope.contrasena== "" ){
-                    $scope.mensaje = "No puede dejar campos vacios";
-                    return ;
-    
-            }    
+       
+        $scope.hola = function() {    
+            if( $scope.usuario == "" &&  $scope.contrasena == "" ){
+                $scope.mostrarError = true;
+                $scope.mostrarLogin = true;
+                $scope.mensaje = "No puede dejar campos vacios";    
+                
+            }else{ 
+
             if( ($scope.usuario == "admin" &&  $scope.contrasena=="123456") || $scope.usuario == "nalore1" && $scope.contrasena=="123456") {
                     $scope.mostrarError = false;
-                    $scope.mostrarLogin = false;  
-                     
+                    $scope.mostrarLogin = false;                       
             }else{
                     $scope.mostrarError = true;
                     $scope.mostrarLogin = true;
@@ -28,6 +28,7 @@ app.controller('ctrlLogin', function ($scope) { //con esto creamos un controlado
                 }
     
         };
+    }
     
     });
 
