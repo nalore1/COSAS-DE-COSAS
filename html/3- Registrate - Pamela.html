@@ -1,8 +1,9 @@
 <<!DOCTYPE html>
-<html>
+<html ng-app="RegistrateApp">
     <head>
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+      
     </head>
     <body>
       <!--BANNER SUPERIOR-->
@@ -31,28 +32,28 @@
                     </div>
                   </nav> 
                   <!--formulario-->
-                  <div class="row">
+                  <div class="row" ng-controller='ctrlRegistrate'>
                   <div class="col-md-6 col-md-offset-3">
                       <h1>Registrate</h1>
                   <form>
                         
                             <div class="col-md-6">
                                 <h4>Nombre</h4>
-                                <input type="text" class="form-control" placeholder="Nombre">
+                                <input type="text" class="form-control" placeholder="Nombre Apellido" ng-model="nombre">
                         </div>
                         <div class="col-md-6">
-                                <h4>Apelidos</h4>
-                                <input type="text" class="form-control" placeholder="Apellidos">
+                                <h4>Nacionalidad</h4>
+                                <input type="text" class="form-control" placeholder="Nacionalidad" ng-model="nacionalidad">
                             </div>
                             
                             <div class="col-md-6">
                                 <h4>Fecha de nacimiento</h4>
-                                <input type="text" class="form-control" placeholder="dd-mm-aaaa">
+                                <input type="text" class="form-control" placeholder="aaaa-mm-dd" ng-model="fechaNac">
                             </div>
                             <div class="form-group col-md-6">
                                     <h4 for="inputState">Genero</h4>
-                                    <select id="inputState" class="form-control">
-                                      <option selected>Genero</option>
+                                    <select id="inputState" class="form-control" ng-model="genero">
+                                      <option selected>Genero</option >
                                       <option>Mujer</option>
                                       <option>Hombre</option>
                                       <option>Otro</option>
@@ -60,11 +61,11 @@
                             </div>
                             <div class="col-md-6">
                                     <h4>Rut</h4>
-                                    <input type="text" class="form-control" placeholder="11.111.111-1">
+                                    <input type="text" class="form-control" placeholder="11.111.111-1" ng-model="rut">
                                 </div>
                                 <div class="form-group col-md-6">
                                         <h4 for="inputState">Region</h4>
-                                        <select id="inputState" class="form-control">
+                                        <select id="inputState" class="form-control" ng-model="region">
                                           <option selected>Region</option>
                                           <option>Región de Arica y Parinacota</option>
                                           <option>Región de Tarapacá</option>
@@ -86,11 +87,11 @@
                                 </div>
                                 <div class="col-md-6">
                                         <h4>Nombre Usuario</h4>
-                                        <input type="text" class="form-control" placeholder="Nombre123">
+                                        <input type="text" class="form-control" placeholder="Nombre123" ng-model="nombreUsuario">
                                     </div>
                                 <div class="col-md-6">
                                     <h4>Password</h4>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="contrasena">
                                 </div>
                                 <div class="col-md-6">
                                         <h4>Repetir Password</h4>
@@ -98,7 +99,7 @@
                                     </div>
                                  <div class="col-md-6">
                                     <h4>Email</h4>
-                                    <input type="text" class="form-control" placeholder="ejemplo@ejemplo.cl">
+                                    <input type="text" class="form-control" placeholder="ejemplo@ejemplo.cl" ng-model="email">
                                 </div>
                                 <div class="form-check col-md-12">
                                     <br>
@@ -109,7 +110,7 @@
                                 </div>
                                 <div class="btn-group col-md-6 col-md-offset-6" role="group" aria-label="Basic example">
                                         <a href="#"  style="text-decoration:none; background-color: #aac9f8;" class="btn btn-secondary">Cancelar</a>
-                                        <button type="button" class="btn btn-primary">Registrarse</button>
+                                        <button type="button" class="btn btn-primary" ng-click="guardar()">Registrarse</button>
                                 </div>
                             
 
@@ -161,5 +162,10 @@
             </div>
         </div>
                       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+
+        <script src ="C:\Users\Administrator\Desktop\Front-End\js\resgistrateApp.js"></script>
     </body>
 </html>
